@@ -70,3 +70,19 @@ FROM fortune_companies
 WHERE industry="Finance"
 OR industry="Healthcare"
 GROUP BY maternity_leave_weeks;
+
+#Which company has good healthcare benefits and at least 25 paid holidays?
+SELECT company_name, paid_time_off_days
+FROM fortune_companies
+WHERE paid_time_off_days>=20
+AND healthcare_benefits=1;
+
+#Assign all companies with the visa type they can award for average employee tenure as either "indefinite leave to remain","renewal"or "leave to enter"
+SELECT company_name, avg_employee_tenure,
+CASE 
+WHEN avg_employee_tenure>=5 THEN "indefinite leave to remain"
+WHEN avg_employee_tenure>=3 THEN "renewal"
+ELSE "leave to enter"
+END AS "visa_type_awarded"
+FROM fortune_companies
+GROUP BY avg_employee_tenure;
