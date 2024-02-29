@@ -69,5 +69,25 @@ ON a.AlbumID=t.AlbumID
 LEFT JOIN chinook.artists ar
 ON ar.ArtistID=a.ArtistID;
 
+#12. Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+SELECT t.Name as Track_name, a.Title, m.Name, g.Name
+FROM chinook.tracks as t
+LEFT JOIN chinook.albums as a
+ON t.albumid=a.albumid
+JOIN chinook.media_types as m
+ON t.MediaTypeid=m.MediaTypeid
+JOIN chinook.genres as g
+ON t.Genreid=g.Genreid;
 
+#13. Show the total sales made by each sales support agent.
+SELECT emp.FirstName, emp.LastName,
+ROUND(SUM(Inv.Total), 2) as 'Total Sales' 
+FROM chinook.Employees emp
+JOIN chinook.Customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.Invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+WHERE emp.Title = 'Sales Support Agent' 
+GROUP BY emp.FirstName;
 
+#14. 
